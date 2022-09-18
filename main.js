@@ -5,6 +5,10 @@ import { detect } from "https://deno.land/std@0.156.0/fs/eol.ts";
 
 const comment_characters = [`;`, `#`];
 
+function localeSortComparer(a, b) {
+    return a.localeCompare(b)
+};
+
 function newSetting() {
     return {
         comments: [],
@@ -111,7 +115,7 @@ async function sortIniContents(ini_data, path) {
                 return setting.data.trim();
             }
 
-            const sortedKeys = section.map(getKey).filter(key => key !== '').sort();
+            const sortedKeys = section.map(getKey).filter(key => key !== '').sort(localeSortComparer);
             const endingComments = section.find(setting => getKey(setting) === '');
             const sortedSettings = [];
             if (header) {
@@ -129,7 +133,7 @@ async function sortIniContents(ini_data, path) {
         }
 
         function getSortedSections() {
-            const sortedKeys = Object.keys(sectionList).sort();
+            const sortedKeys = Object.keys(sectionList).sort(localeSortComparer);
             const sortedSections = [];
             if (unlistedSection.length > 0) {
                 sortedSections.push(getSortedSettings(unlistedSection));
