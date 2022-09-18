@@ -18,7 +18,7 @@ __Sections__: lines that start with __`[`__ and end with __`]`__, ignoring white
 - Sections are sorted amongst each other in lexicographical order.
 - A blank line is added after each section.
 
-__Comments__: lines that start with __`;`__, ignoring whitespace.
+__Comments__: lines that start with __`;`__ or __`#`__, ignoring whitespace.
 - Comments that precede a setting are kept together with that setting.
 - Comments that appear after all the settings of the residing section will stay at bottom of that section.
 - Any blank lines between comments are removed.
