@@ -103,8 +103,12 @@ async function sortIniContents(ini_data, path) {
         const unlistedSection = ini_data.unlisted;
 
         function getSortedSettings(section, header) {
-            const sortedKeys = section.map(setting => setting.data).filter(key => key !== '').sort();
-            const endingComments = section.find(setting => setting.data === '');
+            function getKey(setting) {
+                return setting.data.trim();
+            }
+
+            const sortedKeys = section.map(getKey).filter(key => key !== '').sort();
+            const endingComments = section.find(setting => getKey(setting) === '');
             const sortedSettings = [];
             if (header) {
                 const headerLine = newSetting();
@@ -112,7 +116,7 @@ async function sortIniContents(ini_data, path) {
                 sortedSettings.push(headerLine);
             }
             for (const key of sortedKeys) {
-                sortedSettings.push(section.find(setting => setting.data === key));
+                sortedSettings.push(section.find(setting => getKey(setting) === key));
             }
             if (endingComments) {
                 sortedSettings.push(endingComments);
