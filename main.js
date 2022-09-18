@@ -3,6 +3,8 @@ import { StringReader } from "https://deno.land/std@0.156.0/io/readers.ts?s=Stri
 import { readLines } from "https://deno.land/std@0.156.0/io/mod.ts?s=readLines";
 import { detect } from "https://deno.land/std@0.156.0/fs/eol.ts";
 
+const comment_characters = [`;`, `#`];
+
 function newSetting() {
     return {
         comments: [],
@@ -60,10 +62,12 @@ async function createSections(ini_data, path) {
         for await (const line of readLines(new StringReader(ini_data.original))) {
             const trimmed = line.trim();
             if (trimmed.length < 1) continue;
+            // section header parser
             if (trimmed[0] === '[' && trimmed[trimmed.length - 1] === ']') {
                 addSectionHeader(trimmed); continue;
             }
-            if (trimmed[0] === ';') {
+            // comment parser
+            if (comment_characters.includes(trimmed[0])) {
                 addSettingComment(line); continue;
             }
             else {
