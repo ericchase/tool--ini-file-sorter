@@ -1,7 +1,7 @@
 import { parse } from "https://deno.land/std/flags/mod.ts";
-import { StringReader } from "https://deno.land/std@0.156.0/io/readers.ts?s=StringReader";
-import { readLines } from "https://deno.land/std@0.156.0/io/mod.ts?s=readLines";
-import { detect } from "https://deno.land/std@0.156.0/fs/eol.ts";
+import { StringReader } from "https://deno.land/std/io/readers.ts?s=StringReader";
+import { readLines } from "https://deno.land/std/io/mod.ts?s=readLines";
+import { detect } from "https://deno.land/std/fs/eol.ts";
 
 const comment_characters = [`;`, `#`];
 
